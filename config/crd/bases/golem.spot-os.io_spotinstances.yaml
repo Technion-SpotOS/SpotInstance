@@ -65,6 +65,9 @@ spec:
               nodeName:
                 description: NodeName is the name of the node assigned to the instance
                 type: string
+              stage:
+                description: Stage is the stage of the lifecycle of the instance
+                type: string
             type: object
         type: object
     served: true

@@ -49,6 +49,8 @@ type SpotInstanceStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
+	// Stage is the stage of the lifecycle of the instance
+	Stage string `json:"stage,omitempty" enum:"PendingOrder|Ordered|Ready|Installed"`
 	// NodeName is the name of the node assigned to the instance
 	NodeName string `json:"nodeName,omitempty"`
 }
