@@ -33,10 +33,6 @@ type SpotInstanceReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=golem.spot-os.io,resources=spotinstances,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=golem.spot-os.io,resources=spotinstances/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=golem.spot-os.io,resources=spotinstances/finalizers,verbs=update
-
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
 func (r *SpotInstanceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
