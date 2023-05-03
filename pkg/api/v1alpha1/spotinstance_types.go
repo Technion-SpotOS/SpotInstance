@@ -50,9 +50,9 @@ type SpotInstanceStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Stage is the stage of the lifecycle of the instance
-	Stage string `json:"stage,omitempty" enum:"PendingOrder|Ordered|Ready|Installed"`
+	Stage string `json:"stage,omitempty" enum:"pending-order|ordered|ready|installed"`
 	// NodeName is the name of the node assigned to the instance
-	NodeName string `json:"nodeName,omitempty"`
+	NodeName string `json:"node-name,omitempty"`
 }
 
 //+kubebuilder:object:root=true

@@ -27,7 +27,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
-// SpotInstanceReconciler reconciles a SpotInstance object
+// SpotInstanceReconciler reconciles a SpotInstance object.
 type SpotInstanceReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme

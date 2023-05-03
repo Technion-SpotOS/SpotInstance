@@ -8,12 +8,13 @@ This repository contains the API for SpotInstance CRD and the set of its managin
 ### SpotInstance CR
 A SpotIstance CR defines a spot instance configuration as outputted from the [CloudCostOptimizer](https://github.com/AdiY10/CloudCostOptimizer), and reflects its utilization in status when the spot-instance begins serving as a cluster node.
 
-### SpotIstance Controllers
+### SpotInstance Controllers
 The controllers are responsible for:
 - Ordering the specified spot instance
 - Installing the acquired spot instance as a cluster node
     - Including tainting and labeling properly
 - Updating CR status with assigned node name
+- Updating [SpotWorkload](https://github.com/Technion-SpotOS/SpotWorkload) CRs with the scheduling decisions
 
 TODO: enhance docs, add examples
 

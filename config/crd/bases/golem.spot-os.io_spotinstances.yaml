@@ -18,7 +18,7 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: SpotInstance is the Schema for the spotinstances API
+        description: SpotInstance is the Schema for the spotinstances API.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -33,36 +33,36 @@ spec:
           metadata:
             type: object
           spec:
-            description: SpotInstanceSpec defines the desired state of SpotInstance
+            description: SpotInstanceSpec defines the desired state of SpotInstance.
             properties:
               cpu:
-                description: CPU is the number of CPU cores in the instance
+                description: CPU is the number of CPU cores in the instance.
                 format: int32
                 type: integer
               memory:
-                description: Memory is the amount of memory in the instance
+                description: Memory is the amount of memory in the instance.
                 format: int32
                 type: integer
               region:
-                description: Region is the region of the instance
+                description: Region is the region of the instance.
                 type: string
               storage:
-                description: Storage is the storage of the instance
+                description: Storage is the storage of the instance.
                 type: string
               typeMajor:
-                description: TypeMajor is the major type of the instance
+                description: TypeMajor is the major type of the instance.
                 type: string
               typeMinor:
-                description: TypeMinor is the minor type of the instance
+                description: TypeMinor is the minor type of the instance.
                 type: string
               typeName:
-                description: TypeName is the type of the instance
+                description: TypeName is the type of the instance.
                 type: string
             type: object
           status:
-            description: SpotInstanceStatus defines the observed state of SpotInstance
+            description: SpotInstanceStatus defines the observed state of SpotInstance.
             properties:
-              nodeName:
+              node-name:
                 description: NodeName is the name of the node assigned to the instance
                 type: string
               stage:

@@ -22,6 +22,8 @@ rules:
   resources:
   - spotworkloads
   - spotinstances
+  - spotworkloads/status
+  - spotinstances/status
   verbs:
   - get
   - list

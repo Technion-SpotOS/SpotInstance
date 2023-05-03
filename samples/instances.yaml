@@ -1,0 +1,19 @@
+apiVersion: golem.spot-os.io/v1alpha1
+kind: SpotInstance
+metadata:
+  name: spotos-worker2
+  namespace: golem
+spec:
+  region: us-west-2
+  cpu: 8
+  memory: 16
+  typeName: custom-instance-type
+  typeMajor: major-type
+  typeMinor: minor-type
+  storage: "100Gi"
+status:
+  stage: installed
+  node-name: spotos-worker2
+
+
+  
