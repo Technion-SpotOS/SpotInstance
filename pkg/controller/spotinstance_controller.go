@@ -58,7 +58,7 @@ func setupSpotInstanceController(mgr ctrl.Manager) error {
 	if err := ctrl.NewControllerManagedBy(mgr).
 		For(&v1alpha1.SpotInstance{}).
 		Complete(&SpotInstanceReconciler{mgr.GetClient(), mgr.GetScheme()}); err != nil {
-		return fmt.Errorf("failed to add placement rule controller to the manager: %w", err)
+		return fmt.Errorf("failed to add spot-instance controller to the manager: %w", err)
 	}
 
 	return nil
