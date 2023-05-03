@@ -1,0 +1,95 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spot-instance-controller
+subjects:
+- kind: ServiceAccount
+  name: spot-instance-controller
+  namespace: golem
+roleRef:
+  kind: ClusterRole
+  name: spot-instance-controller
+  apiGroup: rbac.authorization.k8s.io
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: spot-instance-controller
+rules:
+- apiGroups:
+  - golem.spot-os.io
+  resources:
+  - SpotInstance
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - namespaces
+  - configmaps
+  - events
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - create
+  - update
+  - delete
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: spot-instance-controller
+  namespace: golem
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spot-instance-controller
+  namespace: golem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: spot-instance-controller
+  template:
+    metadata:
+      labels:
+        name: spot-instance-controller
+    spec:
+      serviceAccountName: spot-instance-controller
+      containers:
+        - name: spot-instance-controller
+          image: $IMAGE
+          args:
+            - '--zap-devel=true'
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                 apiVersion: v1
+                 fieldPath: metadata.namespace
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                 apiVersion: v1
+                 fieldPath: metadata.namespace

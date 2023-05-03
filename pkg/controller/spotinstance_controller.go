@@ -53,8 +53,8 @@ func (r *SpotInstanceReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	return ctrl.Result{}, nil
 }
 
-// SetupWithManager sets up the controller with the Manager.
-func (r *SpotInstanceReconciler) SetupWithManager(mgr ctrl.Manager) error {
+// setupSpotInstanceController sets up the controller with the Manager.
+func (r *SpotInstanceReconciler) setupSpotInstanceController(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&golemv1alpha1.SpotInstance{}).
 		Complete(r)
