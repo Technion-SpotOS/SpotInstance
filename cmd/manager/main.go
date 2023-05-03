@@ -4,16 +4,13 @@
 package main
 
 import (
-	"context"
-	"flag"
 	"fmt"
 	"os"
 	"runtime"
 	"strings"
 
-	"github.com/Technion-SpotOS/SpotInstance/pkg/controller"
+	controllers "github.com/Technion-SpotOS/SpotInstance/pkg/controller"
 	"github.com/go-logr/logr"
-
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -26,6 +23,7 @@ const (
 	metricsPort                            int32 = 8384
 	environmentVariableControllerNamespace       = "POD_NAMESPACE"
 	environmentVariableWatchNamespace            = "WATCH_NAMESPACE"
+	leaderElectionLockName                       = "spot-instance-controller-lock"
 )
 
 func printVersion(log logr.Logger) {
@@ -35,18 +33,14 @@ func printVersion(log logr.Logger) {
 
 // function to handle defers with exit, see https://stackoverflow.com/a/27629493/553720.
 func doMain() int {
-	pflag.CommandLine.AddFlagSet(zap.FlagSet())
-	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
-	pflag.Parse()
-
-	ctrl.SetLogger(zap.Logger())
+	ctrl.SetLogger(zap.New())
 	log := ctrl.Log.WithName("cmd")
 
 	printVersion(log)
 
-	leaderElectionNamespace, leafHubName, transportType, transportMsgCompressionType, err := readEnvVars()
-	if err != nil {
-		log.Error(err, "initialization error")
+	leaderElectionNamespace, found := os.LookupEnv(environmentVariableControllerNamespace)
+	if !found {
+		log.Error(nil, "Failed to get leader-election error")
 		return 1
 	}
 
@@ -95,11 +89,11 @@ func createManager(leaderElectionNamespace, namespace, metricsHost string, metri
 		return nil, fmt.Errorf("failed to create a new manager: %w", err)
 	}
 
-	if err := controller.AddToScheme(mgr.GetScheme()); err != nil {
+	if err := controllers.AddToScheme(mgr.GetScheme()); err != nil {
 		return nil, fmt.Errorf("failed to add schemes: %w", err)
 	}
 
-	if err := controller.AddControllers(mgr); err != nil {
+	if err := controllers.SetupWithManager(mgr); err != nil {
 		return nil, fmt.Errorf("failed to add controllers: %w", err)
 	}
 

@@ -18,13 +18,13 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/Technion-SpotOS/SpotInstance/api/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	golemv1alpha1 "ithub.com/Technion-SpotOS/SpotInstance/api/v1alpha1"
 )
 
 // SpotInstanceReconciler reconciles a SpotInstance object
@@ -42,8 +42,8 @@ type SpotInstanceReconciler struct {
 func (r *SpotInstanceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
 
-	spotInstance := &golemv1alpha1.SpotInstance{}
-	err := r.Get(ctx, req.NamespacedName, spotInstance)
+	spotInstance := &v1alpha1.SpotInstance{}
+	_ = r.Get(ctx, req.NamespacedName, spotInstance)
 
 	// TODO: create controllers for:
 	// 1. Creating a spot instance
@@ -54,8 +54,12 @@ func (r *SpotInstanceReconciler) Reconcile(ctx context.Context, req ctrl.Request
 }
 
 // setupSpotInstanceController sets up the controller with the Manager.
-func (r *SpotInstanceReconciler) setupSpotInstanceController(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		For(&golemv1alpha1.SpotInstance{}).
-		Complete(r)
+func setupSpotInstanceController(mgr ctrl.Manager) error {
+	if err := ctrl.NewControllerManagedBy(mgr).
+		For(&v1alpha1.SpotInstance{}).
+		Complete(&SpotInstanceReconciler{mgr.GetClient(), mgr.GetScheme()}); err != nil {
+		return fmt.Errorf("failed to add placement rule controller to the manager: %w", err)
+	}
+
+	return nil
 }

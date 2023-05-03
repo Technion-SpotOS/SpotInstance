@@ -9,7 +9,7 @@ RUN microdnf install -y gcc make && rm -rf /var/lib/apt/lists/*
 RUN microdnf install tar gzip
 #install golang binaries
 ENV GOLANG_VERSION 1.20.2
-ENV GOLANG_DOWNLOAD_URL https://golang.org/dl/go$GOLANG_VERSION.linux-amd64.tar.gz
+ENV GOLANG_DOWNLOAD_URL https://golang.org/dl/go$GOLANG_VERSION.linux-arm64.tar.gz
 
 RUN curl -fsSL "$GOLANG_DOWNLOAD_URL" -o golang.tar.gz \
     && tar -C /usr/local -xzf golang.tar.gz \
