@@ -55,7 +55,7 @@ TODO: enhance docs, add examples
 
 ## Cleanup from a cluster
 
-1.  Run the following command to clean `spot-instance-controller` from your leaf hub cluster:
+1.  Run the following command to clean `spot-instance-controller` from your cluster:
     ```
     envsubst < deploy/spot-instance-controller.yaml.template | kubectl delete -f -
     ```

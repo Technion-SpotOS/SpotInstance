@@ -23,28 +23,28 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// SpotInstanceSpec defines the desired state of SpotInstance
+// SpotInstanceSpec defines the desired state of SpotInstance.
 type SpotInstanceSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Region is the region of the instance
+	// Region is the region of the instance.
 	Region string `json:"region,omitempty"`
-	// CPU is the number of CPU cores in the instance
+	// CPU is the number of CPU cores in the instance.
 	CPU int32 `json:"cpu,omitempty"`
-	// Memory is the amount of memory in the instance
+	// Memory is the amount of memory in the instance.
 	Memory int32 `json:"memory,omitempty"`
-	// TypeName is the type of the instance
+	// TypeName is the type of the instance.
 	TypeName string `json:"typeName,omitempty"`
-	// TypeMajor is the major type of the instance
+	// TypeMajor is the major type of the instance.
 	TypeMajor string `json:"typeMajor,omitempty"`
-	// TypeMinor is the minor type of the instance
+	// TypeMinor is the minor type of the instance.
 	TypeMinor string `json:"typeMinor,omitempty"`
-	// Storage is the storage of the instance
+	// Storage is the storage of the instance.
 	Storage string `json:"storage,omitempty"`
 }
 
-// SpotInstanceStatus defines the observed state of SpotInstance
+// SpotInstanceStatus defines the observed state of SpotInstance.
 type SpotInstanceStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
@@ -58,7 +58,7 @@ type SpotInstanceStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// SpotInstance is the Schema for the spotinstances API
+// SpotInstance is the Schema for the spotinstances API.
 type SpotInstance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -69,7 +69,7 @@ type SpotInstance struct {
 
 //+kubebuilder:object:root=true
 
-// SpotInstanceList contains a list of SpotInstance
+// SpotInstanceList contains a list of SpotInstance.
 type SpotInstanceList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
