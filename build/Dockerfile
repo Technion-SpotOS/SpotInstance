@@ -31,6 +31,7 @@ COPY go.sum go.sum
 RUN go mod download
 
 COPY Makefile Makefile
+COPY api/ api/
 COPY cmd/ cmd/
 COPY pkg/ pkg/
 RUN make build
